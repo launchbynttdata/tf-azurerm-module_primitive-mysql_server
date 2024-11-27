@@ -1,1 +1,1 @@
-// empty.
+administrator_login = "testadmin"

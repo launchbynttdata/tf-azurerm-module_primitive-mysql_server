@@ -31,9 +31,9 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | Resource name of the mysql Flexible Server | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Resource group name of the mysql Flexible Server | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Location of the mysql Flexible Server | `string` | n/a | yes |
-| <a name="input_sku_name"></a> [sku\_name](#input\_sku\_name) | The name of the SKU used by this mysql Flexible Server | `string` | `"B_Standard_B1ms"` | no |
+| <a name="input_sku_name"></a> [sku\_name](#input\_sku\_name) | The name of the SKU used by this mysql Flexible Server | `string` | `"GP_Standard_D2ads_v5"` | no |
 | <a name="input_create_mode"></a> [create\_mode](#input\_create\_mode) | The creation mode. Possible values are Default, GeoRestore, PointInTimeRestore, Replica, and Update | `string` | `"Default"` | no |
-| <a name="input_mysql_version"></a> [mysql\_version](#input\_mysql\_version) | Version of the mysql Flexible Server. Required when `create_mode` is Default | `string` | `"16"` | no |
+| <a name="input_mysql_version"></a> [mysql\_version](#input\_mysql\_version) | Version of the mysql Flexible Server. Required when `create_mode` is Default | `string` | `"8.0.21"` | no |
 | <a name="input_delegated_subnet_id"></a> [delegated\_subnet\_id](#input\_delegated\_subnet\_id) | The ID of the subnet to which the mysql Flexible Server is delegated | `string` | `null` | no |
 | <a name="input_private_dns_zone_id"></a> [private\_dns\_zone\_id](#input\_private\_dns\_zone\_id) | The ID of the private DNS zone. Required when `delegated_subnet_id` is set | `string` | `null` | no |
 | <a name="input_administrator_login"></a> [administrator\_login](#input\_administrator\_login) | The administrator login for the mysql Flexible Server.<br>Required when `create_mode` is Default and `authentication.password_auth_enabled` is true | `string` | `null` | no |

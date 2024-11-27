@@ -19,11 +19,15 @@ variable "resource_names_map" {
 
   default = {
     mysql_server = {
-      name       = "psql"
+      name       = "mysql"
       max_length = 60
     }
     virtual_network = {
       name       = "vnet"
+      max_length = 60
+    }
+    dns_vnet_link = {
+      name       = "dnsvnet"
       max_length = 60
     }
     resource_group = {
@@ -126,7 +130,7 @@ variable "time_to_wait_after_destroy" {
 variable "sku_name" {
   description = "The name of the SKU used by this mysql Flexible Server"
   type        = string
-  default     = "B_Standard_B1ms"
+  default     = "GP_Standard_D2ads_v5"
 }
 
 variable "create_mode" {
@@ -143,13 +147,9 @@ variable "create_mode" {
 variable "mysql_version" {
   description = "Version of the mysql Flexible Server. Required when `create_mode` is Default"
   type        = string
-  default     = "16"
-
-  validation {
-    condition     = can(regex("^[0-9]{2}$", var.mysql_version))
-    error_message = "Invalid version value"
-  }
+  default     = "8.0.21"
 }
+
 
 variable "administrator_login" {
   description = <<-EOT

@@ -28,7 +28,7 @@ variable "location" {
 variable "sku_name" {
   description = "The name of the SKU used by this mysql Flexible Server"
   type        = string
-  default     = "B_Standard_B1ms"
+  default     = "GP_Standard_D2ads_v5"
 }
 
 variable "create_mode" {
@@ -45,12 +45,7 @@ variable "create_mode" {
 variable "mysql_version" {
   description = "Version of the mysql Flexible Server. Required when `create_mode` is Default"
   type        = string
-  default     = "16"
-
-  validation {
-    condition     = can(regex("^[0-9]{2}$", var.mysql_version))
-    error_message = "Invalid version value"
-  }
+  default     = "8.0.21"
 }
 
 variable "delegated_subnet_id" {
