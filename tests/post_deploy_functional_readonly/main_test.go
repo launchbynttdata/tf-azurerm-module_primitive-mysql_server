@@ -35,8 +35,7 @@ func TestMysqlModule(t *testing.T) {
 			// Behind the scenes creation of a DNS record causes this to be non-idempotent
 			"complete": {
 				"IS_TERRAFORM_IDEMPOTENT_APPLY": false,
-				// TODO: allow provider registry.terraform.io/hashicorp/time
-				"SKIP_TEST": true,
+				"SKIP_TEST":                     true,
 			},
 		}).
 		Build()

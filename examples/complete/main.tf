@@ -81,13 +81,6 @@ resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_zone_virtu
   virtual_network_id    = module.virtual_network.vnet_id
 }
 
-# the vnet cannot be destroyed for some time after terraform thinks the mysql server is destroyed
-resource "time_sleep" "wait_after_destroy" {
-  destroy_duration = var.time_to_wait_after_destroy
-
-  depends_on = [module.resource_group, module.virtual_network]
-}
-
 # create a random password for the admin user
 resource "random_password" "admin_password" {
   length           = 16
@@ -129,5 +122,5 @@ module "mysql_server" {
 
   tags = merge(var.tags, { resource_name = module.resource_names["mysql_server"].standard })
 
-  depends_on = [module.resource_group, module.virtual_network, module.private_dns_zone, azurerm_private_dns_zone_virtual_network_link.private_dns_zone_virtual_network_link, time_sleep.wait_after_destroy]
+  depends_on = [module.resource_group, module.virtual_network, module.private_dns_zone, azurerm_private_dns_zone_virtual_network_link.private_dns_zone_virtual_network_link]
 }

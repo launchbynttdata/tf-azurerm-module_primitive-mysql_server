@@ -121,12 +121,6 @@ variable "private_dns_zone_name" {
   default     = "launchdso.mysql.database.azure.com"
 }
 
-variable "time_to_wait_after_destroy" {
-  description = "time to wait before destroying the virtual network"
-  type        = string
-  default     = "90s"
-}
-
 variable "sku_name" {
   description = "The name of the SKU used by this mysql Flexible Server"
   type        = string

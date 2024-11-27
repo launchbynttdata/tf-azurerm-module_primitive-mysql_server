@@ -8,14 +8,12 @@
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.113 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.5 |
-| <a name="requirement_time"></a> [time](#requirement\_time) | ~> 0.12 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.117.0 |
-| <a name="provider_time"></a> [time](#provider\_time) | 0.12.1 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.6.3 |
 
 ## Modules
@@ -34,7 +32,6 @@
 |------|------|
 | [azurerm_private_dns_zone_virtual_network_link.private_dns_zone_virtual_network_link](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_zone_virtual_network_link) | resource |
 | [random_password.admin_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
-| [time_sleep.wait_after_destroy](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 
 ## Inputs
 
@@ -49,7 +46,6 @@
 | <a name="input_location"></a> [location](#input\_location) | Location of the mysql Flexible Server | `string` | `"eastus"` | no |
 | <a name="input_vnet_address_space"></a> [vnet\_address\_space](#input\_vnet\_address\_space) | Address space of the example vnet | `string` | `"10.0.200.0/24"` | no |
 | <a name="input_private_dns_zone_name"></a> [private\_dns\_zone\_name](#input\_private\_dns\_zone\_name) | Suffix of the private dns zone name | `string` | `"launchdso.mysql.database.azure.com"` | no |
-| <a name="input_time_to_wait_after_destroy"></a> [time\_to\_wait\_after\_destroy](#input\_time\_to\_wait\_after\_destroy) | time to wait before destroying the virtual network | `string` | `"90s"` | no |
 | <a name="input_sku_name"></a> [sku\_name](#input\_sku\_name) | The name of the SKU used by this mysql Flexible Server | `string` | `"GP_Standard_D2ads_v5"` | no |
 | <a name="input_create_mode"></a> [create\_mode](#input\_create\_mode) | The creation mode. Possible values are Default, GeoRestore, PointInTimeRestore, Replica, and Update | `string` | `"Default"` | no |
 | <a name="input_mysql_version"></a> [mysql\_version](#input\_mysql\_version) | Version of the mysql Flexible Server. Required when `create_mode` is Default | `string` | `"8.0.21"` | no |
