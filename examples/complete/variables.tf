@@ -160,15 +160,6 @@ variable "administrator_login" {
   default     = null
 }
 
-variable "administrator_password" {
-  description = <<-EOT
-    The administrator password for the mysql Flexible Server.
-    Required when `create_mode` is Default and `authentication.password_auth_enabled` is true
-  EOT
-  type        = string
-  default     = null
-}
-
 variable "backup_retention_days" {
   description = "The backup retention days for the mysql Flexible Server, between 7 and 35 days"
   type        = number
