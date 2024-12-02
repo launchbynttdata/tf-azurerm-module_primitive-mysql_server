@@ -19,11 +19,15 @@ variable "resource_names_map" {
 
   default = {
     mysql_server = {
-      name       = "psql"
+      name       = "mysql"
       max_length = 60
     }
     virtual_network = {
       name       = "vnet"
+      max_length = 60
+    }
+    dns_vnet_link = {
+      name       = "dnsvnet"
       max_length = 60
     }
     resource_group = {
@@ -117,16 +121,10 @@ variable "private_dns_zone_name" {
   default     = "launchdso.mysql.database.azure.com"
 }
 
-variable "time_to_wait_after_destroy" {
-  description = "time to wait before destroying the virtual network"
-  type        = string
-  default     = "90s"
-}
-
 variable "sku_name" {
   description = "The name of the SKU used by this mysql Flexible Server"
   type        = string
-  default     = "B_Standard_B1ms"
+  default     = "GP_Standard_D2ads_v5"
 }
 
 variable "create_mode" {
@@ -143,46 +141,13 @@ variable "create_mode" {
 variable "mysql_version" {
   description = "Version of the mysql Flexible Server. Required when `create_mode` is Default"
   type        = string
-  default     = "16"
-
-  validation {
-    condition     = can(regex("^[0-9]{2}$", var.mysql_version))
-    error_message = "Invalid version value"
-  }
+  default     = "8.0.21"
 }
 
-variable "public_network_access_enabled" {
-  description = "Whether or not public network access is allowed for this server"
-  type        = bool
-  default     = false
-}
-
-variable "authentication" {
-  description = <<-EOT
-    active_directory_auth_enabled = Whether or not Active Directory authentication is enabled for this server
-    password_auth_enabled         = Whether or not password authentication is enabled for this server
-    tenant_id                     = The tenant ID of the Active Directory to use for authentication
-  EOT
-  type = object({
-    active_directory_auth_enabled = optional(bool)
-    password_auth_enabled         = optional(bool)
-    tenant_id                     = optional(string)
-  })
-  default = null
-}
 
 variable "administrator_login" {
   description = <<-EOT
     The administrator login for the mysql Flexible Server.
-    Required when `create_mode` is Default and `authentication.password_auth_enabled` is true
-  EOT
-  type        = string
-  default     = null
-}
-
-variable "administrator_password" {
-  description = <<-EOT
-    The administrator password for the mysql Flexible Server.
     Required when `create_mode` is Default and `authentication.password_auth_enabled` is true
   EOT
   type        = string
@@ -275,41 +240,6 @@ variable "source_server_id" {
   description = "The ID of the source mysql Flexible Server to restore from. Required when `create_mode` is GeoRestore, PointInTimeRestore, or Replica"
   type        = string
   default     = null
-}
-
-variable "storage_mb" {
-  description = "The storage capacity of the mysql Flexible Server in megabytes"
-  type        = number
-  default     = 32768
-
-  validation {
-    condition = contains([
-      32768,
-      65536,
-      131072,
-      262144,
-      524288,
-      1048576,
-      2097152,
-      4193280,
-      4194304,
-      8388608,
-      16777216,
-      33553408
-    ], var.storage_mb)
-    error_message = "Invalid storage_mb value"
-  }
-}
-
-variable "storage_tier" {
-  description = "The storage tier of the mysql Flexible Server. Default value based on `storage_mb`"
-  type        = string
-  default     = null
-
-  validation {
-    condition     = var.storage_tier == null || can(regex("^(P4|P6|P10|P15|P20|P30|P40|P50|P60|P70|P80)$", var.storage_tier))
-    error_message = "Invalid storage_tier value"
-  }
 }
 
 variable "tags" {

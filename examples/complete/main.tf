@@ -10,8 +10,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-data "azurerm_client_config" "client" {}
-
 module "resource_names" {
   source  = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
   version = "~> 2.0"
@@ -52,7 +50,7 @@ module "virtual_network" {
       prefix = var.vnet_address_space
       delegation = {
         mysql = {
-          service_name    = "Microsoft.DBformysql/flexibleServers"
+          service_name    = "Microsoft.DBforMySQL/flexibleServers"
           service_actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
         }
       }
@@ -76,11 +74,21 @@ module "private_dns_zone" {
   depends_on = [module.resource_group]
 }
 
-# the vnet cannot be destroyed for some time after terraform thinks the mysql server is destroyed
-resource "time_sleep" "wait_after_destroy" {
-  destroy_duration = var.time_to_wait_after_destroy
+resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_zone_virtual_network_link" {
+  name                  = module.resource_names["dns_vnet_link"].minimal_random_suffix
+  resource_group_name   = module.resource_group.name
+  private_dns_zone_name = module.private_dns_zone.zone_name
+  virtual_network_id    = module.virtual_network.vnet_id
+}
 
-  depends_on = [module.resource_group, module.virtual_network]
+# create a random password for the admin user
+resource "random_password" "admin_password" {
+  length           = 16
+  special          = true
+  min_lower        = 1
+  min_upper        = 1
+  min_special      = 1
+  override_special = "_%@"
 }
 
 module "mysql_server" {
@@ -93,25 +101,14 @@ module "mysql_server" {
   create_mode   = var.create_mode
   mysql_version = var.mysql_version
   sku_name      = var.sku_name
-  storage_mb    = var.storage_mb
-  storage_tier  = var.storage_tier
 
   identity_ids = var.identity_ids
 
-  # use AD auth on the tenant being deployed to unless otherwise specified
-  authentication = coalesce(var.authentication, {
-    active_directory_auth_enabled = true
-    password_auth_enabled         = false
-    tenant_id                     = data.azurerm_client_config.client.tenant_id
-  })
-
   administrator_login    = var.administrator_login
-  administrator_password = var.administrator_password
+  administrator_password = random_password.admin_password.result
 
   delegated_subnet_id = module.virtual_network.subnet_map["mysql-subnet"].id
   private_dns_zone_id = module.private_dns_zone.id
-
-  public_network_access_enabled = var.public_network_access_enabled
 
   high_availability = var.high_availability
 
@@ -125,5 +122,5 @@ module "mysql_server" {
 
   tags = merge(var.tags, { resource_name = module.resource_names["mysql_server"].standard })
 
-  depends_on = [module.resource_group, module.virtual_network, module.private_dns_zone, time_sleep.wait_after_destroy]
+  depends_on = [module.resource_group, module.virtual_network, module.private_dns_zone, azurerm_private_dns_zone_virtual_network_link.private_dns_zone_virtual_network_link]
 }
