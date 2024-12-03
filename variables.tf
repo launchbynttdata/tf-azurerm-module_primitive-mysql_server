@@ -124,7 +124,7 @@ variable "high_availability" {
 
 variable "identity_ids" {
   description = "Specifies a list of User Assigned Managed Identity IDs to be assigned"
-  type        = set(string)
+  type        = list(string)
   default     = null
 }
 
