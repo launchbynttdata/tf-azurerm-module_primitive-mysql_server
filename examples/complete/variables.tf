@@ -34,6 +34,10 @@ variable "resource_names_map" {
       name       = "rg"
       max_length = 60
     }
+    managed_identity = {
+      name       = "mi"
+      max_length = 60
+    }
   }
 }
 
@@ -144,12 +148,8 @@ variable "mysql_version" {
   default     = "8.0.21"
 }
 
-
 variable "administrator_login" {
-  description = <<-EOT
-    The administrator login for the mysql Flexible Server.
-    Required when `create_mode` is Default and `authentication.password_auth_enabled` is true
-  EOT
+  description = "The administrator login for the mysql Flexible Server."
   type        = string
   default     = null
 }
@@ -196,12 +196,6 @@ variable "high_availability" {
     condition     = var.high_availability == null || can(regex("^[0-9]$", var.high_availability.standby_availability_zone))
     error_message = "Invalid value for standby_availability_zone"
   }
-}
-
-variable "identity_ids" {
-  description = "Specifies a list of User Assigned Managed Identity IDs to be assigned"
-  type        = list(string)
-  default     = null
 }
 
 variable "maintenance_window" {
