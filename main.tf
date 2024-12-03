@@ -29,7 +29,7 @@ resource "azurerm_mysql_flexible_server" "mysql" {
     for_each = coalesce(var.identity_ids, [])
     content {
       type         = "UserAssigned"
-      identity_ids = identity.key
+      identity_ids = var.identity_ids
     }
   }
 

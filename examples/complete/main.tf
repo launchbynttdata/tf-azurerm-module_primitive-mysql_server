@@ -36,6 +36,16 @@ module "resource_group" {
   tags = merge(var.tags, { resource_name = module.resource_names["resource_group"].standard })
 }
 
+module "managed_identity" {
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/user_managed_identity/azurerm"
+  version = "~> 1.0"
+
+  user_assigned_identity_name = module.resource_names["managed_identity"].minimal_random_suffix
+  resource_group_name         = module.resource_group.name
+  location                    = var.location
+  depends_on                  = [module.resource_group]
+}
+
 module "virtual_network" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/virtual_network/azurerm"
   version = "~> 3.0"
@@ -102,7 +112,7 @@ module "mysql_server" {
   mysql_version = var.mysql_version
   sku_name      = var.sku_name
 
-  identity_ids = var.identity_ids
+  identity_ids = [module.managed_identity.id]
 
   administrator_login    = var.administrator_login
   administrator_password = random_password.admin_password.result
@@ -122,5 +132,5 @@ module "mysql_server" {
 
   tags = merge(var.tags, { resource_name = module.resource_names["mysql_server"].standard })
 
-  depends_on = [module.resource_group, module.virtual_network, module.private_dns_zone, azurerm_private_dns_zone_virtual_network_link.private_dns_zone_virtual_network_link]
+  depends_on = [module.resource_group, module.virtual_network, module.private_dns_zone, azurerm_private_dns_zone_virtual_network_link.private_dns_zone_virtual_network_link, module.managed_identity]
 }
