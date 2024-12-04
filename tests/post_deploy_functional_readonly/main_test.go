@@ -37,6 +37,10 @@ func TestMysqlModule(t *testing.T) {
 				"IS_TERRAFORM_IDEMPOTENT_APPLY": false,
 				"SKIP_TEST":                     true,
 			},
+			"specific_storage": {
+				"IS_TERRAFORM_IDEMPOTENT_APPLY": false,
+				"SKIP_TEST":                     true,
+			},
 		}).
 		Build()
 

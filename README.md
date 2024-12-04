@@ -1,6 +1,6 @@
 # tf-azurerm-module_primitive-mysql_server
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -45,6 +45,7 @@ No modules.
 | <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | Specifies a list of User Assigned Managed Identity IDs to be assigned | `list(string)` | `null` | no |
 | <a name="input_maintenance_window"></a> [maintenance\_window](#input\_maintenance\_window) | The maintenance window of the mysql Flexible Server<br>day\_of\_week = The day of the week when maintenance should be performed<br>start\_hour   = The start hour of the maintenance window<br>start\_minute = The start minute of the maintenance window | <pre>object({<br>    day_of_week  = optional(string, 0)<br>    start_hour   = optional(number, 0)<br>    start_minute = optional(number, 0)<br>  })</pre> | <pre>{<br>  "day_of_week": 0,<br>  "start_hour": 0,<br>  "start_minute": 0<br>}</pre> | no |
 | <a name="input_source_server_id"></a> [source\_server\_id](#input\_source\_server\_id) | The ID of the source mysql Flexible Server to restore from. Required when `create_mode` is GeoRestore, PointInTimeRestore, or Replica | `string` | `null` | no |
+| <a name="input_storage"></a> [storage](#input\_storage) | n/a | <pre>object({<br>    io_scaling_enabled = optional(bool, null)<br>    iops               = optional(number)<br>    size_gb            = optional(number)<br>    auto_grow_enabled  = optional(bool, true)<br>  })</pre> | <pre>{<br>  "auto_grow_enabled": true,<br>  "io_scaling_enabled": true,<br>  "iops": null,<br>  "size_gb": 20<br>}</pre> | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource | `map(string)` | `{}` | no |
 
 ## Outputs
@@ -57,4 +58,4 @@ No modules.
 | <a name="output_delegated_subnet_id"></a> [delegated\_subnet\_id](#output\_delegated\_subnet\_id) | n/a |
 | <a name="output_private_dns_zone_id"></a> [private\_dns\_zone\_id](#output\_private\_dns\_zone\_id) | n/a |
 | <a name="output_source_server_id"></a> [source\_server\_id](#output\_source\_server\_id) | n/a |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
