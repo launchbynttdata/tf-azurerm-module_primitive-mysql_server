@@ -121,6 +121,7 @@ module "mysql_server" {
   private_dns_zone_id = module.private_dns_zone.id
 
   high_availability = var.high_availability
+  storage           = var.storage
 
   backup_retention_days        = var.backup_retention_days
   geo_redundant_backup_enabled = var.geo_redundant_backup_enabled

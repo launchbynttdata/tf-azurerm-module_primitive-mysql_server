@@ -198,6 +198,22 @@ variable "high_availability" {
   }
 }
 
+variable "storage" {
+  type = object({
+    io_scaling_enabled = optional(bool, null)
+    iops               = optional(number)
+    size_gb            = optional(number)
+    auto_grow_enabled  = optional(bool, true)
+  })
+
+  default = {
+    io_scaling_enabled = true
+    iops               = null
+    size_gb            = 20
+    auto_grow_enabled  = true
+  }
+}
+
 variable "maintenance_window" {
   description = <<-EOT
     The maintenance window of the mysql Flexible Server
