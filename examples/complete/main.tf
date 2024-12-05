@@ -98,7 +98,7 @@ resource "random_password" "admin_password" {
   min_lower        = 1
   min_upper        = 1
   min_special      = 1
-  override_special = "_%@"
+  override_special = "%^&@" ### underscore is not considered "special" by Azure MySQL
 }
 
 module "mysql_server" {

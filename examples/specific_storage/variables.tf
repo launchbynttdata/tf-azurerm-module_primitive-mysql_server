@@ -230,6 +230,35 @@ variable "maintenance_window" {
   }
 }
 
+variable "storage" {
+  type = object({
+    io_scaling_enabled = optional(bool, null)
+    iops               = optional(number)
+    size_gb            = optional(number)
+    auto_grow_enabled  = optional(bool, true)
+  })
+
+  default = {
+    io_scaling_enabled = true
+    iops               = null
+    size_gb            = 20
+    auto_grow_enabled  = true
+  }
+
+  validation {
+    condition     = var.storage.size_gb >= 5 && var.storage.size_gb <= 16384
+    error_message = "size_gb must be between 5 and 16384."
+  }
+  validation {
+    condition     = (var.storage.io_scaling_enabled == true && var.storage.iops == null) || (var.storage.io_scaling_enabled == false && var.storage.iops != null)
+    error_message = "iops must not be specified when io_scaling_enabled is true."
+  }
+  validation {
+    condition     = var.storage.iops == null ? true : (var.storage.iops >= 360 && var.storage.iops <= 20000)
+    error_message = "iops must be between 360 and 20000."
+  }
+}
+
 variable "source_server_id" {
   description = "The ID of the source mysql Flexible Server to restore from. Required when `create_mode` is GeoRestore, PointInTimeRestore, or Replica"
   type        = string

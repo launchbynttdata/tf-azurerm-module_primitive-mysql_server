@@ -186,7 +186,7 @@ variable "storage" {
     error_message = "size_gb must be between 5 and 16384."
   }
   validation {
-    condition     = var.storage.io_scaling_enabled == true && var.storage.iops == null
+    condition     = (var.storage.io_scaling_enabled == true && var.storage.iops == null) || (var.storage.io_scaling_enabled == false && var.storage.iops != null)
     error_message = "iops must not be specified when io_scaling_enabled is true."
   }
   validation {
