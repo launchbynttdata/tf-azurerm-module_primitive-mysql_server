@@ -127,6 +127,8 @@ module "mysql_server" {
 
   maintenance_window = var.maintenance_window
 
+  storage = var.storage
+
   source_server_id = var.source_server_id
   zone             = var.zone
 

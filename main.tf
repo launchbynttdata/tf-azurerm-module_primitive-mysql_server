@@ -53,6 +53,17 @@ resource "azurerm_mysql_flexible_server" "mysql" {
     }
   }
 
+  dynamic "storage" {
+    iterator = storage
+    for_each = try(var.storage[*], [])
+    content {
+      auto_grow_enabled  = storage.value.auto_grow_enabled
+      io_scaling_enabled = storage.value.io_scaling_enabled
+      iops               = storage.value.iops
+      size_gb            = storage.value.size_gb
+    }
+  }
+
   source_server_id = var.source_server_id
   zone             = var.zone
 
