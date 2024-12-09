@@ -68,4 +68,11 @@ resource "azurerm_mysql_flexible_server" "mysql" {
   zone             = var.zone
 
   tags = var.tags
+
+  lifecycle {
+    # Azure may set or change this value after creation
+    ignore_changes = [
+      zone,
+    ]
+  }
 }

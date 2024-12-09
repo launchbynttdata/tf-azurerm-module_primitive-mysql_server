@@ -210,53 +210,7 @@ variable "maintenance_window" {
     start_hour   = optional(number, 0)
     start_minute = optional(number, 0)
   })
-  default = {
-    day_of_week  = 0
-    start_hour   = 0
-    start_minute = 0
-  }
-
-  validation {
-    condition     = var.maintenance_window.day_of_week >= 0 && var.maintenance_window.day_of_week <= 6
-    error_message = "Invalid maintenance_window.day_of_week value"
-  }
-  validation {
-    condition     = var.maintenance_window.start_hour >= 0 && var.maintenance_window.start_hour <= 23
-    error_message = "maintenance_window.start_hour must be between 0 and 23"
-  }
-  validation {
-    condition     = var.maintenance_window.start_minute >= 0 && var.maintenance_window.start_minute <= 59
-    error_message = "maintenance_window.start_minute must be between 0 and 59"
-  }
-}
-
-variable "storage" {
-  type = object({
-    io_scaling_enabled = optional(bool, null)
-    iops               = optional(number)
-    size_gb            = optional(number)
-    auto_grow_enabled  = optional(bool, true)
-  })
-
-  default = {
-    io_scaling_enabled = true
-    iops               = null
-    size_gb            = 20
-    auto_grow_enabled  = true
-  }
-
-  validation {
-    condition     = var.storage.size_gb >= 5 && var.storage.size_gb <= 16384
-    error_message = "size_gb must be between 5 and 16384."
-  }
-  validation {
-    condition     = (var.storage.io_scaling_enabled == true && var.storage.iops == null) || (var.storage.io_scaling_enabled == false && var.storage.iops != null)
-    error_message = "iops must not be specified when io_scaling_enabled is true."
-  }
-  validation {
-    condition     = var.storage.iops == null ? true : (var.storage.iops >= 360 && var.storage.iops <= 20000)
-    error_message = "iops must be between 360 and 20000."
-  }
+  default = null
 }
 
 variable "source_server_id" {

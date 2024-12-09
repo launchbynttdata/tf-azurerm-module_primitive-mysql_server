@@ -29,3 +29,11 @@ output "vnet_id" {
 output "resource_group_name" {
   value = module.resource_group.name
 }
+
+output "mysql_storage" {
+  value = var.storage
+}
+
+output "mysql_maintenance_window" {
+  value = var.maintenance_window
+}
