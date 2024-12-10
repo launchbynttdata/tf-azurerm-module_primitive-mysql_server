@@ -140,24 +140,7 @@ variable "maintenance_window" {
     start_hour   = optional(number, 0)
     start_minute = optional(number, 0)
   })
-  default = {
-    day_of_week  = 0
-    start_hour   = 0
-    start_minute = 0
-  }
-
-  validation {
-    condition     = var.maintenance_window.day_of_week >= 0 && var.maintenance_window.day_of_week <= 6
-    error_message = "Invalid maintenance_window.day_of_week value"
-  }
-  validation {
-    condition     = var.maintenance_window.start_hour >= 0 && var.maintenance_window.start_hour <= 23
-    error_message = "maintenance_window.start_hour must be between 0 and 23"
-  }
-  validation {
-    condition     = var.maintenance_window.start_minute >= 0 && var.maintenance_window.start_minute <= 59
-    error_message = "maintenance_window.start_minute must be between 0 and 59"
-  }
+  default = null
 }
 
 variable "source_server_id" {
