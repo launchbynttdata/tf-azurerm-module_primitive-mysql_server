@@ -1,4 +1,5 @@
 administrator_login = "testadmin"
+instance_env        = 2
 storage = {
   io_scaling_enabled = false
   iops               = 1000
