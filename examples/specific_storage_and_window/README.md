@@ -1,5 +1,17 @@
 # specific_storage_and_window
 
+## Usage
+
+This example deploys a MySQL Flexible Server with custom storage and maintenance window settings in a private network configuration.
+
+From this directory:
+
+```
+terraform init
+terraform plan -var-file=test.tfvars
+terraform apply -var-file=test.tfvars
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

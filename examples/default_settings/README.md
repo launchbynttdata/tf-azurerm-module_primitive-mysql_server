@@ -1,5 +1,17 @@
 # default_settings
 
+## Usage
+
+This example deploys a MySQL Flexible Server with default settings in a private network configuration, including a virtual network, private DNS zone, and managed identity.
+
+From this directory:
+
+```
+terraform init
+terraform plan -var-file=test.tfvars
+terraform apply -var-file=test.tfvars
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
