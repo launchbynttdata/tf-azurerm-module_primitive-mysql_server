@@ -24,7 +24,7 @@ terraform apply -var-file=test.tfvars
 ## Modules
 
 | Name | Source | Version |
-| ---- | ------ | ------- |
+|------|--------|---------|
 | <a name="module_managed_identity"></a> [managed\_identity](#module\_managed\_identity) | terraform.registry.launch.nttdata.com/module_primitive/user_managed_identity/azurerm | ~> 1.0 |
 | <a name="module_mysql_server"></a> [mysql\_server](#module\_mysql\_server) | ./../.. | n/a |
 | <a name="module_private_dns_zone"></a> [private\_dns\_zone](#module\_private\_dns\_zone) | terraform.registry.launch.nttdata.com/module_primitive/private_dns_zone/azurerm | ~> 1.0 |
