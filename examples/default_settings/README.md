@@ -16,7 +16,7 @@ terraform apply -var-file=test.tfvars
 ## Requirements
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.3 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.113 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.5 |
@@ -35,14 +35,14 @@ terraform apply -var-file=test.tfvars
 ## Resources
 
 | Name | Type |
-| ---- | ---- |
+|------|------|
 | [azurerm_private_dns_zone_virtual_network_link.private_dns_zone_virtual_network_link](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_zone_virtual_network_link) | resource |
 | [random_password.admin_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------| :------: |
 | <a name="input_administrator_login"></a> [administrator\_login](#input\_administrator\_login) | The administrator login for the mysql Flexible Server. | `string` | `null` | no |
 | <a name="input_backup_retention_days"></a> [backup\_retention\_days](#input\_backup\_retention\_days) | The backup retention days for the mysql Flexible Server, between 7 and 35 days | `number` | `7` | no |
 | <a name="input_class_env"></a> [class\_env](#input\_class\_env) | (Required) Environment where resource is going to be deployed. For example. dev, qa, uat | `string` | `"dev"` | no |
@@ -67,7 +67,7 @@ terraform apply -var-file=test.tfvars
 ## Outputs
 
 | Name | Description |
-| ---- | ----------- |
+|------|-------------|
 | <a name="output_mysql_fqdn"></a> [mysql\_fqdn](#output\_mysql\_fqdn) | n/a |
 | <a name="output_mysql_id"></a> [mysql\_id](#output\_mysql\_id) | n/a |
 | <a name="output_mysql_name"></a> [mysql\_name](#output\_mysql\_name) | n/a |
