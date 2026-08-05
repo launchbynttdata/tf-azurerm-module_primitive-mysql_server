@@ -44,5 +44,5 @@ func TestMysqlModule(t *testing.T) {
 		}).
 		Build()
 
-	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestmysqlServer)
+	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestComposableMysqlServer)
 }
