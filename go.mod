@@ -1,8 +1,6 @@
 module github.com/launchbynttdata/tf-azurerm-module_primitive-mysql_server
 
-go 1.22.7
-
-toolchain go1.22.8
+go 1.23.0
 
 require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.16.0
@@ -106,7 +104,7 @@ require (
 	golang.org/x/crypto v0.30.0 // indirect
 	golang.org/x/mod v0.22.0 // indirect
 	golang.org/x/net v0.32.0 // indirect
-	golang.org/x/oauth2 v0.24.0 // indirect
+	golang.org/x/oauth2 v0.27.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/term v0.27.0 // indirect
