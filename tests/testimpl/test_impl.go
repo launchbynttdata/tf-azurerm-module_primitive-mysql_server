@@ -38,8 +38,8 @@ func TestComposableMysqlServer(t *testing.T, ctx types.TestContext) {
 		t.Fatalf("Error getting mysql client: %v", err)
 	}
 
-	resourceGroupName := terraform.Output(t, ctx.TerratestTerraformOptions(), "resource_group_name")
-	mysqlName := terraform.Output(t, ctx.TerratestTerraformOptions(), "mysql_name")
+	resourceGroupName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "resource_group_name")
+	mysqlName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "mysql_name")
 
 	mysqlServer, err := armmysqlClient.Get(context.Background(), resourceGroupName, mysqlName, nil)
 	if err != nil {
@@ -52,7 +52,7 @@ func TestComposableMysqlServer(t *testing.T, ctx types.TestContext) {
 
 	t.Run("ismysqlServerStorageConfigured", func(t *testing.T) {
 		ctx.EnabledOnlyForTests(t, "specific_storage_and_window")
-		mysqlStorage := terraform.OutputMap(t, ctx.TerratestTerraformOptions(), "mysql_storage")
+		mysqlStorage := terraform.OutputMapContext(t, context.Background(), ctx.TerratestTerraformOptions(), "mysql_storage")
 		auto_grow := "Disabled"
 
 		if mysqlStorage["auto_grow_enabled"] == "true" {
@@ -66,7 +66,7 @@ func TestComposableMysqlServer(t *testing.T, ctx types.TestContext) {
 
 	t.Run("ismysqlServerMaintenanceWindowConfigured", func(t *testing.T) {
 		ctx.EnabledOnlyForTests(t, "specific_storage_and_window")
-		maintenance_window := terraform.OutputMap(t, ctx.TerratestTerraformOptions(), "mysql_maintenance_window")
+		maintenance_window := terraform.OutputMapContext(t, context.Background(), ctx.TerratestTerraformOptions(), "mysql_maintenance_window")
 
 		assert.Equal(t, "Enabled", string(*mysqlServer.Properties.MaintenanceWindow.CustomWindow))
 		assert.Equal(t, maintenance_window["day_of_week"], decimal(mysqlServer.Properties.MaintenanceWindow.DayOfWeek), "Expected day of week to be %s, but got %d", maintenance_window["day_of_week"], decimal(mysqlServer.Properties.MaintenanceWindow.DayOfWeek))
